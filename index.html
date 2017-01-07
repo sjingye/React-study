@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!--<link rel="stylesheet" href="css/index.css">-->
+</head>
+<body>
+    <div id="wrap">
+       {{ message }}
+    </div>
+
+     <div id="wrap2">
+        <span  v-bind:title="message">
+                hover please
+        </span>
+    </div>
+
+     <div id="wrap3">
+       <p v-if="seen">
+           now you see me
+       </p>
+    </div>
+
+    <div id="wrap4">
+       <ol>
+           <li v-for="todo in todos">
+               {{todo.text}}
+           </li>
+       </ol>
+    </div>
+<script>
+    var wrap = new Vue({
+        el: "#wrap",
+        data: {
+            message: "Hello xiao 13!"
+        }
+    })
+    var wrap2 = new Vue({
+        el: "#wrap2",
+        data: {
+            message: "Hello xiao 13!"+new Date()
+        }
+    })
+    var wrap3 = new Vue({
+        el: "#wrap3",
+        data: {
+            seen: false
+        }
+    })
+    var wrap4 = new Vue({
+        el: "#wrap4",
+        data: {
+            todos:[
+                {text: "mama"},
+                {text: "baba"},
+                {text: "didi"}
+            ]
+        }
+    })
+</script>
+</body>
+</html>
