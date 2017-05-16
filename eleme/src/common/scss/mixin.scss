@@ -1,0 +1,31 @@
+$main-font-color: #3c3c3c;
+$main-color: #f5674b;
+@function size($size) {
+    $width: 750;
+    $scale: 10;
+    @return ($size * $scale / $width) * 1rem;
+}
+
+@mixin data-dpr($field, $val) {
+    [data-dpr="1"] & {
+        #{$field}: $val*1px;
+    }
+    [data-dpr="2"] & {
+        #{$field}: $val*2px;
+    }
+    [data-dpr="3"] & {
+        #{$field}: $val*3px;
+    }
+}
+
+@mixin data-dpr-imp($field, $val) {
+    [data-dpr="1"] & {
+        #{$field}: $val*1px !important;
+    }
+    [data-dpr="2"] & {
+        #{$field}: $val*2px !important;
+    }
+    [data-dpr="3"] & {
+        #{$field}: $val*3px !important;
+    }
+}
