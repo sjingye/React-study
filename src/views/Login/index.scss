@@ -1,0 +1,59 @@
+@import "../../util/common.scss";
+
+.login-wrapper {
+    background: #fff;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+
+    .remind {
+        background: rgba(240, 131, 1, 0.3);
+        height: size(100);
+        text-align: center;
+        margin-bottom: size(6);
+        @include font(28, #F08301, 100);
+    }
+    .login-content {
+       margin: 0 size(40);
+        > li{
+            height: size(94);
+            margin-top: size(40);
+            @include border-bottom(#D5D4D4);
+            display: flex;
+            justify-content: space-between;
+            > label {
+                @include font(32, #999, 94);
+                display: inline-block;
+                width: 5em;
+                flex: 0 0 auto;
+            }
+            .rest {
+                @include font(32, #999, 94);
+                display: inline-block;
+                flex: 1;
+            }
+            .code {
+                width: size(150);
+                height: size(50);
+                margin-top: size(22);
+            }
+        }
+    }
+    .login-btn {
+        display: block;
+        margin: size(120) auto size(36);
+        width: size(666);
+        height: size(92);
+        background: linear-gradient(68deg, rgba(76, 192, 181, 1), rgba(88, 220, 144, 1));
+        border-radius: size(46);
+        @include font(34, #fff, 92);
+    }
+    .link {
+        margin: size(36) size(42) size(0);
+        display: flex;
+        justify-content: space-between;
+        > a {
+            @include font(28, #00A5A8, 28);
+        }
+    }
+}
