@@ -143,7 +143,7 @@ class Logup extends PureComponent {
     const { getFieldProps } = this.props.form;
     const { codeImg, loading, t } = this.state;
     return (
-      <div className="login-wrapper">
+      <div className="logup-wrapper">
         <p className="remind">已有账户请点击<Link to={`/login`}>登录</Link></p>
         <ul className="login-content">
           <li>

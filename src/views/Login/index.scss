@@ -51,7 +51,7 @@
     .link {
         margin: size(36) size(42) size(0);
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         > a {
             @include font(28, #00A5A8, 28);
         }
