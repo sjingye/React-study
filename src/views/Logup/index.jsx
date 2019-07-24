@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createForm, formShape } from 'rc-form';
 import { Toast, Icon } from 'antd-mobile';
-import { get, codeimgUrl, checkCodeimgUrl, getIdentifyUrl, logupUrl } from 'api/index.js';
+// import {  } from 'api/index.js';
 import { userInfo } from 'actions/auth.js';
 import './index.scss';
 import { post } from '../../api';
@@ -58,20 +58,6 @@ class Logup extends PureComponent {
       }
     })
   }
-  checkCodeImg = () => {
-    console.log(this.props.form.getFieldValue('code'))
-    get(checkCodeimgUrl, {
-      captcha_token: this.state.codeToken,
-      captcha_code: this.props.form.getFieldValue('code'),
-    }).then(response => {
-      console.log(response);
-      if (response.data.status === 0) {
-        this.setState({
-          isCheckedCode: true,
-        })
-      }
-    })
-  }
   getIdentify = () => {
     const phone = this.props.form.getFieldValue('phone')
     if (this.state.isCheckedCode && phoneReg.test(phone)) {
@@ -97,23 +83,16 @@ class Logup extends PureComponent {
         }
       })
     }
-
   }
   handleSubmit = (e) => {
-    console.log(this.props.from)
-    this.props.form.validateFields((err, values) => {
-      if (!err && this.state.isCheckedCode) {
-        this.setState({
-          loading: true,
-        })
         axios({
-          method: 'post',
-          url: logupUrl,
-          data: {
-            username: values.username,
-            phone: values.phone,
-            password: values.password,
-            code: values.identify,
+          // method: 'post',
+          // url: logupUrl,
+          // data: {
+          //   username: values.username,
+          //   phone: values.phone,
+          //   password: values.password,
+          //   code: values.identify,
           }
         }).then((res) => {
           const data = res.data.data;
@@ -136,8 +115,6 @@ class Logup extends PureComponent {
             loading: true,
           })
         })
-      }
-    })
   }
   render() {
     const { getFieldProps } = this.props.form;

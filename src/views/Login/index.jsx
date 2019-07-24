@@ -2,6 +2,7 @@ import React, { useState, useReducer } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { login } from 'api/index.js';
+import { Toast } from '../../components/index.js';
 import './index.scss';
 
 const initialState = {};
@@ -20,8 +21,11 @@ function reducer(state={userInfo: {}}, action) {
 function Login(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [alertTip, setAlertTip] = useState('');
+    const [alertVisible, setAlertVisible] = useState(false);
     const [state, dispatch] = useReducer(reducer, initialState);
     const handleSubmit = (e) => {
+        if (!checkForm()) return;
         login({
             username: username,
             password: password,
@@ -37,6 +41,19 @@ function Login(props) {
         }).catch(err => {
             // Toast.info(err.msg);
         })
+    }
+    function checkForm() {
+        let msg = '';
+        let reg = /^[\u4e00-\u9fa5A-Za-z\d]{1,20}$/;
+        if (!reg.test(username) || !reg.test(password)) {
+            msg = '请输入汉字、字母或者数字';
+            setAlertTip(msg);
+            setAlertVisible(true);
+        }
+        return !Boolean(msg);
+    }
+    function handleToast () {
+        setAlertVisible(false);
     }
     return (
         <div className="login-wrapper">
@@ -69,6 +86,7 @@ function Login(props) {
             <p className="link">
                 <Link to={`/logup`}>没有账户请点击注册</Link>
             </p>
+            <Toast message={alertTip} alertVisible={alertVisible} closeToast={handleToast}/>
         </div>
     )
 }
