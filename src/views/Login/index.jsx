@@ -7,7 +7,7 @@ import './index.scss';
 
 const initialState = {};
 
-function reducer(state={userInfo: {}}, action) {
+function reducer(state = { userInfo: {} }, action) {
     switch (action.type) {
         case 'userInfo':
             return Object.assign({}, state, {
@@ -46,13 +46,14 @@ function Login(props) {
         let msg = '';
         let reg = /^[\u4e00-\u9fa5A-Za-z\d]{1,20}$/;
         if (!reg.test(username) || !reg.test(password)) {
+            console.log('检查')
             msg = '请输入汉字、字母或者数字';
             setAlertTip(msg);
             setAlertVisible(true);
         }
         return !Boolean(msg);
     }
-    function handleToast () {
+    function handleAlertVisible() {
         setAlertVisible(false);
     }
     return (
@@ -66,7 +67,7 @@ function Login(props) {
                         id="username"
                         className="rest"
                         value={username}
-                        onChange={(e) => {setUsername(e.target.value)}}
+                        onChange={(e) => { setUsername(e.target.value) }}
                     />
                 </li>
                 <li>
@@ -77,7 +78,7 @@ function Login(props) {
                         id="password"
                         className="rest"
                         value={password}
-                        onChange={(e) => {setPassword(e.target.value)}}
+                        onChange={(e) => { setPassword(e.target.value) }}
                     />
                 </li>
             </ul>
@@ -86,7 +87,7 @@ function Login(props) {
             <p className="link">
                 <Link to={`/logup`}>没有账户请点击注册</Link>
             </p>
-            <Toast message={alertTip} alertVisible={alertVisible} closeToast={handleToast}/>
+            {alertVisible && <Toast message={alertTip} visible={alertVisible} close={handleAlertVisible} />}
         </div>
     )
 }
