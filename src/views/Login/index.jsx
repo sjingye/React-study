@@ -24,29 +24,30 @@ function Login(props) {
     const [alertTip, setAlertTip] = useState('');
     const [alertVisible, setAlertVisible] = useState(false);
     const [state, dispatch] = useReducer(reducer, initialState);
-    const handleSubmit = (e) => {
+
+    function handleSubmit(e) {
         if (!checkForm()) return;
         login({
             username: username,
             password: password,
         }).then((res) => {
-            console.log(res)
             sessionStorage.setItem('username', res.username);
             dispatch({
                 type: 'userInfo',
                 userInfo: res
             })
+            setAlertTip('登录成功');
+            setAlertVisible(true);
             props.history.go(-1);
-            // Toast.info(res.data.msg);
         }).catch(err => {
-            // Toast.info(err.msg);
+            setAlertTip('登录失败');
+            setAlertVisible(true);
         })
     }
     function checkForm() {
         let msg = '';
         let reg = /^[\u4e00-\u9fa5A-Za-z\d]{1,20}$/;
         if (!reg.test(username) || !reg.test(password)) {
-            console.log('检查')
             msg = '请输入汉字、字母或者数字';
             setAlertTip(msg);
             setAlertVisible(true);

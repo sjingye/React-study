@@ -43,7 +43,11 @@
                 display: inline-block;
                 flex: 1;
             }
-
+            .identify-rest {
+                @include font(32, #999, 94);
+                display: inline-block;
+                width: 6em;
+            }
             .code {
                 width: size(150);
                 height: size(50);

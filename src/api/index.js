@@ -6,7 +6,8 @@ export function logup(params) {
             const index = userData.findIndex(item => item.username === params.username)
             if (index === -1) {
                 userData.push({
-                    ...params,
+                    username: params.username,
+                    password: params.password,
                 });
                 resolve(params);
             } else {
