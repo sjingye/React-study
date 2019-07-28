@@ -1,4 +1,4 @@
-'use strict';
+
 
 const fs = require('fs');
 const isWsl = require('is-wsl');
@@ -287,6 +287,7 @@ module.exports = function (webpackEnv) {
         'views': path.resolve(__dirname, '../src/views'),
         'api': path.resolve(__dirname, '../src/api'),
         'actions': path.resolve(__dirname, '../src/actions'),
+        'util': path.resolve(__dirname, '../src/util'),
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding

@@ -1,7 +1,10 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+// import { IndexRoute } from 'react-router';
 import RouteHOC from 'components/authHOC.js';
 import asyncComponent from 'components/asyncComponent.js';
+
+const JobList = asyncComponent(() => import('views/JobList/index.jsx'));
 
 const ChildRoutes = [
     {
@@ -14,6 +17,12 @@ const ChildRoutes = [
       path: '/logup',
       title: '注册',
       component: asyncComponent(() => import('views/Logup/index.jsx')),
+      requiresAuth: false,
+    },
+    {
+      path: '/job-list',
+      title: '职位列表',
+      component: JobList,
       requiresAuth: false,
     },
 ];
@@ -43,8 +52,7 @@ const AppRouter = () => {
                 <PrivateRoute exact component={RouteHOC(item.component, item.title)} path={item.path} key={item.path} /> : 
                 <Route exact component={RouteHOC(item.component, item.title)}  path={item.path} key={item.path} />)
             })}
-            {/* <Route exact component={asyncComponent(() => import('views/Logup/index.jsx'))}  path={'/logup'} key={1} />) */}
-            <Redirect to="/" />
+            <Redirect to="/" component={JobList} />
         </Switch>
     )
 }

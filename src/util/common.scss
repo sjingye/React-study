@@ -1,48 +1,136 @@
 @function size($px) {
     @return $px / 75 * 1rem;
-}
-
-@mixin wh($w, $h) {
+  }
+  
+  @mixin wh($w, $h) {
     width: size($w);
     height: size($h);
-}
-
-@mixin font($px, $color, $lh) {
+  }
+  
+  @mixin font($px, $color, $lh) {
     font-size: size($px);
     color: $color;
     line-height: size($lh);
-}
-
-@mixin border-bottom($color) {
+  }
+  
+  @mixin border-top($color) {
     position: relative;
-
+  
     &:after {
-        display: block;
-        content: ' ';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        transform: scaleY(.5);
-        background: $color;
+      display: block;
+      content: ' ';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      transform: scaleY(.5);
+      background: $color;
     }
-}
-
-@mixin border($color, $radius) {
+  }
+  
+  @mixin border-bottom($color) {
     position: relative;
-
+  
     &:after {
-        content: '';
-        width: 200%;
-        height: 200%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border: 1px solid $color;
-        -webkit-transform: scale(0.5, 0.5);
-        transform: scale(0.5, 0.5);
-        -webkit-transform-origin: top left;
-        border-radius: size($radius);
+      display: block;
+      content: ' ';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      transform: scaleY(.5);
+      background: $color;
     }
-}
+  }
+  
+  @mixin border-right($color) {
+    position: relative;
+  
+    &:after {
+      display: block;
+      content: ' ';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 1px;
+      height: 100%;
+      transform: scaleX(.5);
+      background: $color;
+    }
+  }
+  
+  @mixin border($color, $radius) {
+    position: relative;
+  
+    &:after {
+      content: '';
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 1px solid $color;
+      transform: scale(0.5, 0.5);
+      transform-origin: top left;
+      border-radius: size($radius);
+    }
+  }
+  
+  .icon {
+    display: inline-block;
+    background-repeat: no-repeat;
+  }
+  
+  html,
+  body,
+  ul,
+  li,
+  ol,
+  dl,
+  dd,
+  dt,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  form,
+  fieldset,
+  legend,
+  img {
+    margin: 0;
+    padding: 0;
+  }
+  
+  fieldset,
+  c {
+    border: none;
+  }
+  
+  address,
+  caption,
+  cite,
+  code,
+  dfn,
+  th,
+  var {
+    font-style: normal;
+    font-weight: normal;
+  }
+  
+  ul,
+  ol,
+  li {
+    list-style: none;
+  }
+  
+  em,
+  i {
+    font-style: normal !important;
+  }
+ 
+  

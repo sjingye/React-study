@@ -1,0 +1,30 @@
+@import '../../util/common.scss';
+
+.input-wrapper {
+    margin: 0 size(30);
+    // padding-top: size(16);
+    display: flex;
+    justify-content: space-between;
+    @include font(24, #333, 80);
+    .input-item {
+      @include wh(622, 80);
+      background: #fff;
+      border-radius: size(30);
+      display: flex;
+      .icon-search {
+        background-image: url("./img/icon-search.png");
+        background-size: 100%;
+        @include wh(36, 36);
+        margin: size(22) 0 0 size(28);
+        flex: 0 0 auto;
+      }
+      > input {
+        height: size(80);
+        flex: 1;
+      }
+    }
+    .icon-cancel {
+      padding: 0 size(0);
+    }
+  }
+  

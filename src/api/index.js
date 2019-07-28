@@ -31,3 +31,13 @@ export function login(params) {
         }, 100);
     })
 }
+// 获取职位列表数据
+export function getJobList(params) {
+    // fake async
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const data = require('../mock/JobListData.js').mockData();
+            resolve(data);
+        }, 100);
+    })
+}

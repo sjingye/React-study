@@ -1,0 +1,45 @@
+@import '../../util/common.scss';
+
+.job-title {
+    display: block;
+    width: 92%;
+    margin: size(36) auto;
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.13);
+    border-radius: size(15);
+    background: rgba(255, 255, 255, 0.6);
+    padding: size(30) size(30) 0;
+    box-sizing: border-box;
+    > h2 {
+        @include font(30, #00a5a8, 30);
+        word-break: break-all;
+    }
+    .tag-wrapper {
+        margin: size(22) 0 size(42);
+        > li {
+            display: inline-block;
+            background: rgba(0, 165, 168, 0.3);
+            border-radius: size(14);
+            padding: size(4) size(20);
+            @include font(20, #fff, 20);
+            margin: 0 size(20) size(10) 0;
+        }
+    }
+}
+.job-bottom {
+    padding: size(26) 0;
+    @include border-top(#eee);
+    @include font(24, #999, 24);
+    display: flex;
+    justify-content: space-between;
+    .position {
+        i {
+            display: inline-block;
+            @include wh(20, 28);
+            background-size: 100%;
+            background-image: url("./img/icon-position.png");
+            background-repeat: no-repeat;
+            margin-right: size(10);
+            vertical-align: middle;
+        }
+    }
+}

@@ -40,6 +40,9 @@ class Logup extends PureComponent {
     static propTypes = {
         form: formShape,
     };
+    componentBeforeUnmount() {
+        this.timer && clearInterval(this.timer);
+    }
     getIdentify = () => {
         const phone = this.props.form.getFieldValue('phone');
         if (phoneReg.test(phone)) {
