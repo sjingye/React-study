@@ -16,8 +16,29 @@ class JobList extends PureComponent {
     componentDidMount() {
         this.fetchData()
     }
-    fetchData = () => {
-        getJobList().then(response => {
+    fetchData = (params = {}) => {
+        getJobList({
+            title: params.title || '',
+        }).then(response => {
+            console.log(response)
+            this.setState((state) => {
+                return {
+                    dataSource: response.data
+                    // dataSource: state.dataSource.concat(response.data)
+                }
+            })
+        })
+    }
+    handleInput = (title) => {
+        this.fetchData({title});
+    }
+    handleCancel = () => {
+        this.fetchData()
+    }
+    _loadMore = (params) => {
+        getJobList({
+            title: params.title || '',
+        }).then(response => {
             console.log(response)
             this.setState((state) => {
                 return {
@@ -25,21 +46,6 @@ class JobList extends PureComponent {
                 }
             })
         })
-    }
-    handleInput = (value) => {
-        console.log(value)
-        this.setState((state) => {
-            return {
-                dataSource: [...state.dataSource].filter(item => {
-                    console.log(item)
-                    console.log(value)
-                    return item.jobTitle === value
-                })
-            }
-        })
-    }
-    handleCancel = () => {
-
     }
     render() {
         const { dataSource } = this.state;

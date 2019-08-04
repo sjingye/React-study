@@ -8,22 +8,26 @@ class BaseInput extends React.PureComponent {
         super(props);
         this.state = {
             inputContent: ''
-        }
+        };
+        this.wrapInput =  debounce(this.wrapInput, 600)
     }
     static propTypes = {
         onInput: PropTypes.func.isRequired,
         oneCancel: PropTypes.func.isRequired,
     }
+    wrapInput = (value) => {
+        console.log(value)
+        this.props.onInput(value)
+    }
     handleChange = (event) => {
+        event.persist();
         this.setState({
             inputContent: event.target.value,
-        }, this.props.onInput(event.target.value))
-        // debounce(() => {
-        //     this.props.onInput(event.target.value);
-        // }, 1000)();
+        })
+        this.wrapInput(event.target.value);
     }
     handleCancel = () => {
-        // this.props.oneCancel();
+        this.props.oneCancel();
     }
     render() {
         return (

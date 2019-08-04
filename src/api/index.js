@@ -23,7 +23,6 @@ export function login(params) {
         setTimeout(() => {
             const data = userData.find(item => item.username === params.username)
             if (data.password === params.password) {
-                console.log(params)
                 resolve(params);
             } else {
                 reject({ msg: '登录失败！' })
@@ -37,7 +36,17 @@ export function getJobList(params) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             const data = require('../mock/JobListData.js').mockData();
-            resolve(data);
+            const list =[...data.data].filter(item => {
+                if (!params.title) {
+                    return true
+                } else {
+                    return item.jobTitle.includes(params.title)
+                }
+            })
+            resolve({
+                ...data,
+                data: list
+            });
         }, 100);
     })
 }
