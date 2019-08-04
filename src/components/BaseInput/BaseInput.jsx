@@ -27,6 +27,9 @@ class BaseInput extends React.PureComponent {
         this.wrapInput(event.target.value);
     }
     handleCancel = () => {
+        this.setState({
+            inputContent: ''
+        });
         this.props.oneCancel();
     }
     render() {

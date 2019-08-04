@@ -7,4 +7,43 @@
         padding-top: size(20);
         box-sizing: border-box;
     }
+    .get-more-button {
+        display: block;
+        width: 100%;
+        text-align: center;
+        background: #E5E5E5;
+        height: size(80);
+        @include font(24, #333, 80);
+    }
+}
+
+.select-content {
+    height: size(76);
+    display: flex;
+    justify-content: space-around;
+    @include border-bottom(#eee);
+
+    >li {
+        @include font(24, #333, 30);
+        height: size(30);
+        margin: size(23) 0;
+        text-align: center;
+        @include border-right(#eee);
+        flex: 1;
+
+        .icon-arrow-down {
+            background-image: url("./img/icon-arrow-down.png");
+            background-size: 100%;
+            @include wh(20, 10);
+            margin-left: size(18);
+        }
+
+        .icon-arrow-up {
+            transform: rotate(180deg);
+        }
+
+        &:last-of-type:after {
+            display: none;
+        }
+    }
 }
