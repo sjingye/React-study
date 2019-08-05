@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
-import classNames from 'classnames';
+import classnames from 'classnames';
 import './Toast.scss';
 
 class Toast extends PureComponent {
@@ -15,7 +15,7 @@ class Toast extends PureComponent {
     }
     render() {
         const { message, position, visible } = this.props;
-        const classname = classNames('toast', { 'placetop': position === 'top' }, { 'placebottom': position === 'bottom' }, { 'placemiddle': position === 'middle' })
+        const classname = classnames('toast', { 'placetop': position === 'top' }, { 'placebottom': position === 'bottom' }, { 'placemiddle': position === 'middle' })
         return (
             <CSSTransition in={visible} timeout={200} classNames="toast-animation">
                 <div className={classname}>
