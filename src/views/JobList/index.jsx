@@ -1,12 +1,24 @@
 import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
+import { Picker } from 'antd-mobile';
+import { district } from 'antd-mobile-demo-data';
+import { createForm } from 'rc-form';
 import classnames from 'classnames';
 import { getJobList } from 'api/index.js';
 import BaseInput from 'components/BaseInput/BaseInput.jsx';
-import Popup from 'components/Popup/Popup.jsx';
 import JobItem from './JobItem.js';
 import './index.scss';
+
+let timeSort = 0
+let numberSort = 0
+
+const provinceLite = require('../../mock/JobListData.js').provinceLite;
+const provinceList = Object.keys(provinceLite).map(item => {
+    return {
+        label: item,
+        value: item,
+    }
+})
 
 class JobList extends PureComponent {
     constructor(props) {
@@ -15,15 +27,17 @@ class JobList extends PureComponent {
             dataSource: [],
             pick1Index: 0,
             inputValue: '',
-            popup1Visible: false,
+            popupVisible: false,
+            pickValue: 0,
         };
     }
     componentDidMount() {
-        this.fetchData()
+        this.fetchData({ time: 0 })
     }
-    fetchData = (params = {}) => {
+    fetchData = (params) => {
         getJobList({
             title: this.state.inputValue,
+            ...params,
         }).then(response => {
             console.log(response)
             this.setState((state) => {
@@ -51,7 +65,6 @@ class JobList extends PureComponent {
         getJobList({
             title: this.state.inputValue,
         }).then(response => {
-            console.log(response)
             this.setState((state) => {
                 return {
                     dataSource: state.dataSource.concat(response.data)
@@ -59,20 +72,43 @@ class JobList extends PureComponent {
             })
         })
     }
-    tabPopup = () => {
+    tabSort = (e, type) => {
+        if (type === 0) {
+            timeSort = timeSort === 0 ? 1 : 0
+            this.fetchData({
+                time: timeSort
+            })
+        } else if (type === 1) {
+            numberSort = numberSort === 0 ? 1 : 0
+            this.fetchData({
+                number: numberSort
+            })
+        } else {
+            this.setState({
+                popupVisible: true,
+            })
+        }
+    }
+    handlePickSave = (array) => {
+        this.fetchData({
+            province: array[0]
+        })
         this.setState({
-            popup1Visible: true,
+            popupVisible: false,
         })
     }
-    handlePopupClose = () => {
+    handlePickDismiss = () => {
         this.setState({
-            popup1Visible: false,
+            popupVisible: false,
         })
     }
     render() {
-        const { dataSource, pick1Index, popup1Visible } = this.state;
-        const arrowClass = classnames({
-            'icon-arrow-up': this.state.popup1Visible,
+        const { dataSource } = this.state;
+        const arrowClass1 = classnames({
+            'icon-arrow-up': timeSort === 1,
+        }, 'icon icon-arrow-down')
+        const arrowClass2 = classnames({
+            'icon-arrow-up': numberSort === 1,
         }, 'icon icon-arrow-down')
         return (
             <div className="job-list-wrapper">
@@ -80,28 +116,35 @@ class JobList extends PureComponent {
                     <BaseInput onInput={this.handleInput} oneCancel={this.handleCancel} />
                 </div>
                 <ul className="select-content">
-                    <li onClick={this.tabPopup}>
-                        {pick1Index === 0 ? '最新' : '人数'}
-                        <i className={arrowClass} />
+                    <li onClick={e => { this.tabSort(e, 0) }}>
+                        最新
+                        <i className={arrowClass1} />
+                    </li>
+                    <li onClick={e => { this.tabSort(e, 1) }}>
+                        人数
+                        <i className={arrowClass2} />
+                    </li>
+                    <li onClick={e => { this.tabSort(e, 2) }}>
+                        省
                     </li>
                 </ul >
                 {dataSource.map((item) =>
                     (<JobItem data={item} key={item.id} />))
                 }
                 <button onClick={this.loadMore} className="get-more-button">获取更多数据</button>
-                <Popup visible={popup1Visible} position="bottom" onClose={this.handlePopupClose}>
-                    <ul className="select-content">
-                        <li>
-                            '最新'
-                        </li>
-                        <li>
-                            '人数'
-                        </li>
-                    </ul >
-                </Popup>
+                <Picker
+                    data={provinceList}
+                    cols={1}
+                    value={this.state.pickValue}
+                    onChange={v => this.setState({ pickValue: v })}
+                    onOk={this.handlePickSave}
+                    onDismiss={this.handlePickDismiss}
+                    visible={this.state.popupVisible}
+                >
+                </Picker>
             </div >
         )
     }
 }
 
-export default withRouter(JobList);
+export default withRouter(createForm()(JobList));

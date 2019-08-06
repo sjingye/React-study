@@ -52,7 +52,7 @@ const AppRouter = () => {
                 <PrivateRoute exact component={RouteHOC(item.component, item.title)} path={item.path} key={item.path} /> : 
                 <Route exact component={RouteHOC(item.component, item.title)}  path={item.path} key={item.path} />)
             })}
-            <Redirect to="/" component={JobList} />
+            <Redirect to="/job-list" />
         </Switch>
     )
 }
