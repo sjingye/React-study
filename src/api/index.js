@@ -31,7 +31,7 @@ export function login(params) {
     })
 }
 // 获取职位列表数据,排序数据时应该在原有的基础上排序，而不是重新mock数据。加载更多的时候数据排序会有问题，仅做演示之用
-export function getJobList(params) {
+export function getJobList() {
     // fake async
     return new Promise((resolve, reject) => {
         setTimeout(() => {

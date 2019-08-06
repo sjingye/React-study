@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router';
-import { Picker } from 'antd-mobile';
+import { Picker, PullToRefresh } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import classnames from 'classnames';
 import { getJobList } from 'api/index.js';
@@ -28,14 +28,14 @@ class JobList extends PureComponent {
             inputValue: '',
             popupVisible: false,
             pickValue: 0,
+            refreshing: false,
         };
     }
     componentDidMount() {
         this.fetchData({ time: 0 })
     }
-    fetchData = (params) => {
+    fetchData = () => {
         getJobList().then(response => {
-            console.log(response)
             this.setState(() => {
                 return {
                     dataSource: response.data
@@ -55,7 +55,7 @@ class JobList extends PureComponent {
         this.setState({
             inputValue: ''
         }, () => {
-            this.filterData()
+            this.fetchData()
         })
     }
     loadMore = () => {
@@ -158,9 +158,21 @@ class JobList extends PureComponent {
                         省
                     </li>
                 </ul >
+                {/* <PullToRefresh
+                    direction="up"
+                    refreshing={this.state.refreshing}
+                    onRefresh={() => {
+                        this.setState({ refreshing: true });
+                        console.log('刷新')
+                        setTimeout(() => {
+                            this.setState({ refreshing: false });
+                        }, 1000);
+                    }}
+                >
+                </PullToRefresh> */}
                 {dataSource.map((item) =>
-                    (<JobItem data={item} key={item.id} />))
-                }
+                        (<JobItem data={item} key={item.id} />))
+                    }
                 <button onClick={this.loadMore} className="get-more-button">获取更多数据</button>
                 <Picker
                     data={provinceList}
