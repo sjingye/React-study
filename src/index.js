@@ -2,14 +2,15 @@ import React from 'react';
 import { render } from 'react-dom';
 import { HashRouter as Router } from "react-router-dom";
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import reducers from './reducer/index.js';
 import AppRouter from './router/router.js';
 import 'normalize.css';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
 
-let store = createStore(reducers);
+let store = createStore(reducers, applyMiddleware(thunk));
 
 store.subscribe(() => {
   console.log(store.getState())

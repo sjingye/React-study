@@ -25,6 +25,12 @@ const ChildRoutes = [
       component: JobList,
       requiresAuth: false,
     },
+    {
+      path: '/test-provider',
+      title: '测试provider',
+      component: asyncComponent(() => import('views/TestProvider/TestProvider.jsx')),
+      requiresAuth: false,
+    },
 ];
 
 /* 嵌套赋值例子
