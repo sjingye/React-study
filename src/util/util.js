@@ -12,10 +12,11 @@ export function debounce(fn, delay) {
 // 防抖，只会触发一次
 export function throttle(fn, delay) {
     let timer = null;
-    return function () {
+    return function (...args) {
+        let _this = this;
         if (timer) {
-            timer = setTimeout(() => {
-                fn();
+            timer = setTimeout(function () {
+                fn.apply(_this, args);
                 timer = null;
             }, delay)
         }

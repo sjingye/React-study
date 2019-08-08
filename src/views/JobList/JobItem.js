@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import './JobItem.scss';
 
 export default function JobItem(props) {
     const data = props.data;
     return (
-        <Link to="/" className="job-title">
+        <div className="job-title">
             <h2>{data.jobTitle}</h2>
             <ul className="tag-wrapper">
                 <li>{data.educationType}</li>
@@ -19,6 +19,6 @@ export default function JobItem(props) {
                 </p>
                 <p className="time">{data.createdTime}</p>
             </div>
-        </Link>
+        </div>
     )
 }

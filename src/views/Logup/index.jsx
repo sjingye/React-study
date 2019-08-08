@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createForm, formShape } from 'rc-form';
 import { Icon, Toast } from 'antd-mobile';
-import { userInfo } from 'actions/auth.js';
+import { userInfo, userToken } from 'actions/auth.js';
 import { logup } from 'api/index.js';
 import './index.scss';
 
@@ -14,7 +14,8 @@ const phoneReg = /^1\d{10}$/;
 
 const mapStateToProps = state => {
     return {
-        userInfo: state.auth.userInfo
+        userInfo: state.auth.userInfo,
+        userToken: state.auth.userToken
     }
 }
 
@@ -22,6 +23,9 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         setUserInfo: (props) => {
             dispatch(userInfo(props))
+        },
+        setUserToken: (props) => {
+            dispatch(userToken(props))
         }
     }
 }
@@ -73,6 +77,8 @@ class Logup extends PureComponent {
                 }).then((res) => {
                     sessionStorage.setItem('username', res.username);
                     this.props.setUserInfo(res);
+                    this.props.setUserToken(res.username)
+                    console.log(this.props.userToken)
                     this.setState({
                         loading: false,
                     })

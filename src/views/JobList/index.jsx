@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 import { Picker, PullToRefresh } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import classnames from 'classnames';
 import { getJobList } from 'api/index.js';
+import { increaseCount, decreaseCount } from '../../actions/count.js'
 import BaseInput from 'components/BaseInput/BaseInput.jsx';
 import JobItem from './JobItem.js';
 import './index.scss';
@@ -59,7 +61,10 @@ class JobList extends PureComponent {
         })
     }
     loadMore = () => {
+        this.props.increase(2);
+        console.log(this.props._count)
         getJobList().then(response => {
+            this.props.decrease(1);
             this.setState((state) => {
                 return {
                     dataSource: state.dataSource.concat(response.data)
@@ -171,8 +176,8 @@ class JobList extends PureComponent {
                 >
                 </PullToRefresh> */}
                 {dataSource.map((item) =>
-                        (<JobItem data={item} key={item.id} />))
-                    }
+                    (<JobItem data={item} key={item.id} />))
+                }
                 <button onClick={this.loadMore} className="get-more-button">获取更多数据</button>
                 <Picker
                     data={provinceList}
@@ -189,4 +194,20 @@ class JobList extends PureComponent {
     }
 }
 
-export default withRouter(createForm()(JobList));
+JobList = createForm()(JobList)
+
+const WrappedList = connect((state) => {
+    return {
+        _count: state.count
+    }
+}, (dispatch) => {
+    return {
+        increase: (props) => {
+            dispatch(increaseCount(props))
+        },
+        decrease: (props) => {
+            dispatch(decreaseCount(props))
+        }
+    }
+})(JobList)
+export default withRouter(WrappedList);
