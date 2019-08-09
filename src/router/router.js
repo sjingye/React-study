@@ -28,7 +28,13 @@ const ChildRoutes = [
     {
       path: '/test-provider',
       title: '测试provider',
-      component: asyncComponent(() => import('views/TestProvider/TestProvider.jsx')),
+      component: asyncComponent(() => import('views/Test/TestProvider.jsx')),
+      requiresAuth: false,
+    },
+    {
+      path: '/test-proto',
+      title: '测试proto',
+      component: asyncComponent(() => import('views/Test/TestProto.jsx')),
       requiresAuth: false,
     },
 ];
