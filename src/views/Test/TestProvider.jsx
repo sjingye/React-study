@@ -26,9 +26,6 @@ export default class Test extends React.Component {
                 <ThemeContext.Provider value="dark" >
                     <Toolbar />
                 </ThemeContext.Provider>
-                <ObjContext.Provider value={}>
-                   <ThemedP />
-                </ObjContext.Provider>
             </div>
 
         )
@@ -69,19 +66,6 @@ class ThemedButton extends React.Component {
                 <button theme={this.context} onClick={this.handleClick} style={{ width: '100%', height: '40px' }}>
                     测试provider
                 </button>
-                <ObjContext.Consumer>
-                    {
-                        ({ color, toggleColor }) => {
-                            return (
-                                <p style={{ color: color }} onClick={toggleColor}>
-                                    测试consumer
-                                </p>
-                            )
-                        }
-                    }
-
-                </ObjContext.Consumer>
-
             </div>
 
         )
@@ -102,7 +86,7 @@ class ThemedP extends React.Component {
                 <button theme={this.context} onClick={this.handleClick} style={{ width: '100%', height: '40px' }}>
                     测试provider
                 </button>
-                <ObjContext.Consumer>
+                {/* <ObjContext.Consumer>
                     {
                         ({ color, toggleColor }) => {
                             return (
@@ -113,7 +97,7 @@ class ThemedP extends React.Component {
                         }
                     }
 
-                </ObjContext.Consumer>
+                </ObjContext.Consumer> */}
             </div>
         )
     }
