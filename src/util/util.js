@@ -22,3 +22,14 @@ export function throttle(fn, delay) {
         }
     }
 }
+function a () {
+    b.bind(this,'id')
+}
+// bind
+Function.prototype.mybind = function (t, ...args) {
+    const _this = this
+    return function () {
+        //同样因为支持柯里化形式传参我们需要再次获取存储参数
+        return _this.apply(t, args.concat([...arguments]))
+    }
+}
