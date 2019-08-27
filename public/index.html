@@ -52,8 +52,26 @@
                 console.log(this)
             }
         }
+        const dog = {
+            fun: function () { console.log(this) }
+        }
         person.fn(1)
         person.fn.mybind(window, 2)(1)
+
+        Function.prototype.mycall = function (t = window, ...args) {
+            t.fn = this
+            console.log(args)
+            return t.fn(...args)
+        }
+        person.fn.mycall(window, 1)
+
+        Function.prototype.myapply = function (t = window, ...args) {
+            t.fn = this
+            console.log(args)
+            return t.fn(args)
+        }
+        person.fn.myapply(dog, [2, 3, 4])
+
     </script>
     <script>
         // 在 Array、String prototype 上写一个函数
@@ -68,6 +86,59 @@
         //     return a
         // }
         console.log('abcd'.fn('--'))
+    </script>
+    <script>
+        // // 继承1
+        // function Super() {
+        //     this.value = 1
+        // }
+        // Super.prototype.fn = function () {
+        //     console.log(this.value)
+        // }
+        // function Sub() {
+        // }
+        // Sub.prototype = new Super()
+        // var s = new Sub()
+        // console.log(s.fn())
+        // // 继承2
+        // function Super() {
+        //     this.value = 2
+        // }
+        // Super.prototype.fn = function () {
+        //     console.log(this.value)
+        // }
+        // function Sub() {
+        //     this.value = 3
+        // }
+        // Sub.prototype = Object.create(Super.prototype, {
+        //     constructor: {
+        //         value: Sub,
+        //         enumerable: false,
+        //         writable: true,
+        //         configurable: true
+        //     }
+        // })
+        // var s = new Sub()
+        // s.fn()
+        // 继承3
+        class Super {
+            constructor() {
+                this.value = 4
+            }
+        }
+        class Sub extends Super {
+            fn() {
+                console.log(this.value)
+            }
+        }
+        var s = new Sub()
+        s.fn()
+    </script>
+    <script>
+        async function test() {
+            return "1";
+        }
+        console.log(test())
     </script>
     <title></title>
 </head>

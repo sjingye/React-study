@@ -39,11 +39,16 @@ class Logup extends PureComponent {
             t: 60,
             disabled: false,
         };
+        console.log(this.props.history)
         this.timer = null;
     }
     static propTypes = {
         form: formShape,
     };
+    componentDidMount() {
+        console.log(this.props.history)
+    }
+    // 学习一下dva
     componentBeforeUnmount() {
         this.timer && clearInterval(this.timer);
     }

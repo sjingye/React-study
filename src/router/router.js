@@ -8,34 +8,34 @@ const JobList = asyncComponent(() => import('views/JobList/index.jsx'));
 
 const ChildRoutes = [
     {
-      path: '/login',
-      title: '登录',
-      component: asyncComponent(() => import('views/Login/index.jsx')),
-      requiresAuth: false,
+        path: '/login',
+        title: '登录',
+        component: asyncComponent(() => import('views/Login/index.jsx')),
+        requiresAuth: false,
     },
     {
-      path: '/logup',
-      title: '注册',
-      component: asyncComponent(() => import('views/Logup/index.jsx')),
-      requiresAuth: false,
+        path: '/logup',
+        title: '注册',
+        component: asyncComponent(() => import('views/Logup/index.jsx')),
+        requiresAuth: false,
     },
     {
-      path: '/job-list',
-      title: '职位列表',
-      component: JobList,
-      requiresAuth: false,
+        path: '/job-list',
+        title: '职位列表',
+        component: JobList,
+        requiresAuth: false,
     },
     {
-      path: '/test-provider',
-      title: '测试provider',
-      component: asyncComponent(() => import('views/Test/TestProvider.jsx')),
-      requiresAuth: false,
+        path: '/test-provider',
+        title: '测试provider',
+        component: asyncComponent(() => import('views/Test/TestProvider.jsx')),
+        requiresAuth: false,
     },
     {
-      path: '/test-proto',
-      title: '测试proto',
-      component: asyncComponent(() => import('views/Test/TestProto.jsx')),
-      requiresAuth: false,
+        path: '/test-proto',
+        title: '测试proto',
+        component: asyncComponent(() => import('views/Test/TestProto.jsx')),
+        requiresAuth: false,
     },
 ];
 
@@ -49,7 +49,7 @@ obj // {prop:123}
 arr // [true]
 */
 // BaseComponent嵌套赋值
-function PrivateRoute({component: BaseComponent, ...rest}) {
+function PrivateRoute({ component: BaseComponent, ...rest }) {
     return (
         <Route {...rest} render={props => sessionStorage.getItem('username') ?
             <BaseComponent {...props} /> :
@@ -60,9 +60,9 @@ const AppRouter = () => {
     return (
         <Switch>
             {ChildRoutes.map(item => {
-                return (item.requiresAuth ? 
-                <PrivateRoute exact component={RouteHOC(item.component, item.title)} path={item.path} key={item.path} /> : 
-                <Route exact component={RouteHOC(item.component, item.title)}  path={item.path} key={item.path} />)
+                return (item.requiresAuth ?
+                    <PrivateRoute exact component={RouteHOC(item.component, item.title)} path={item.path} key={item.path} /> :
+                    <Route exact component={RouteHOC(item.component, item.title)} path={item.path} key={item.path} />)
             })}
             <Redirect to="/job-list" />
         </Switch>
