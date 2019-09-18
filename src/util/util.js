@@ -55,3 +55,34 @@ let p = onWatch(obj, (v) => {
 })
 p.a = 2
 console.log(p.a)
+
+// 函数柯里化
+function add (a) {
+    return b => {
+        return a + b
+    }
+}
+add(1)(2)
+// es5
+function Person (state) {
+    this.state = state
+    return '<div></div>'
+}
+Person.prototype.say = function () {
+    console.log(this.state)
+}
+const me = new Person('state')
+console.info(me)
+me.say()
+
+function Parent(name) {
+    this.parent = name
+}
+Parent.prototype.say = function() {
+    console.log(`${this.parent}: 你打篮球的样子像kunkun`)
+}
+function Child () {}
+Child.prototype = Object.create(Parent.prototype);
+
+var child = new Child('cxk');
+child.say() // father好，我是练习时长两年半的cxk
