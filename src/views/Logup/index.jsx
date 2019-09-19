@@ -38,6 +38,7 @@ class Logup extends PureComponent {
         this.state = {
             t: 60,
             disabled: false,
+            val: 0,
         };
         console.log(this.props.history)
         this.timer = null;
@@ -46,7 +47,17 @@ class Logup extends PureComponent {
         form: formShape,
     };
     componentDidMount() {
-        console.log(this.props.history)
+        // setState的更新
+        this.setState({ val: this.state.val + 1 })
+        console.log(this.state.val)
+        this.setState({ val: this.state.val + 1 })
+        console.log(this.state.val)
+        setTimeout(_ => {
+            this.setState({ val: this.state.val + 1 })
+            console.log(this.state.val);
+            this.setState({ val: this.state.val + 1 })
+            console.log(this.state.val)
+        }, 0)
     }
     // 学习一下dva
     componentBeforeUnmount() {
@@ -163,7 +174,8 @@ class Logup extends PureComponent {
                 <button className="login-btn" onClick={this.handleSubmit}>
                     {loading ? <Icon type="loading" style={{ verticalAlign: 'middle', marginRight: '4px' }} /> : ''}
                     确定
-        </button>
+                </button>
+                <p>{this.state.val}</p>
             </div>
         )
     }
